@@ -1,0 +1,11 @@
+#include <stio.h>
+int main()
+{
+char word
+i=0
+while (word[i]!=\0;++);
+printf("Length of word is: %d",i) 
+
+
+	return 0;
+}
