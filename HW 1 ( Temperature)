@@ -1,0 +1,21 @@
+/* Gabriela Lopez
+* 1/31/16
+* Hw 1 */
+
+#include <stdio.h>
+int main()
+{
+int Ftemp;
+float Ctemp;
+
+
+ printf("Fahrenheight\tCelsius"); 
+
+for (Ftemp=0; Ftemp<300; Ftemp=Ftemp+10)
+{
+	Ctemp=(Ftemp-32)*(5.0/9.0);
+printf("\n %d" "\t\t" "%f \n",Ftemp,Ctemp );
+}
+
+	return 0;
+}
