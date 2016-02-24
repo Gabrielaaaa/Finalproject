@@ -14,8 +14,18 @@ int strCmp(char *str1, char *str2) // compares two strings and returns number of
 		}
 
 	}
-	return n;
+	/**
+	for (i=1; i%3==0 &&str2[i]!='\0';i=i+3) // making it start at 1 becus 0/3 has no remainder
+	{	// make function that will 
+			//take 3 chracters at a time and compare it to str1
+		if (str1[0]==str2[i-3] && str1[1]==str2[i-2] && str1[2]==str2[i-1]) //in the next iteration
+			// ith term will be evaluated but it will be called i-3
+			n=n+1;
+	}*/
+		return n;
 }
+
+
 
 int main() {
 //Open a FILE
@@ -26,7 +36,11 @@ int i=0;
 int space=0;
 //int keyword=0;
 int j;
-int n; // this variable will be a counter for number of true comparisons
+int n; // counter for int
+int g; // counter for char
+int k; // counter for include
+int p; // counter for return
+
 
 while (fgets(str,49,fp)) // fgets goes line by line so simply putting a counter is fine
 {
@@ -40,10 +54,16 @@ while (fgets(str,49,fp)) // fgets goes line by line so simply putting a counter 
 				
     }
     n = n + strCmp("int",str);
+    g = g + strCmp("char",str);
+    k = k + strCmp("include",str);
+    p = p + strCmp("return",str);
 }
 printf("\n number of lines is %d \n",i);
 printf("\n number of spaces is %d \n",space);
 printf("\n number of int keywords is %d \n",n);
+printf("\n number of char keywords is %d \n",g);
+printf("\n number of include keywords is %d \n",k);
+printf("\n number of return keywords is %d \n",p);
 //printf("number of keywords is %d \n",keyword);
 //Count number of lines
 //Count number of spaces
@@ -52,3 +72,4 @@ printf("\n number of int keywords is %d \n",n);
 fclose(fp);
 return 0;
 }
+
