@@ -14,14 +14,7 @@ int strCmp(char *str1, char *str2) // compares two strings and returns number of
 		}
 
 	}
-	/**
-	for (i=1; i%3==0 &&str2[i]!='\0';i=i+3) // making it start at 1 becus 0/3 has no remainder
-	{	// make function that will 
-			//take 3 chracters at a time and compare it to str1
-		if (str1[0]==str2[i-3] && str1[1]==str2[i-2] && str1[2]==str2[i-1]) //in the next iteration
-			// ith term will be evaluated but it will be called i-3
-			n=n+1;
-	}*/
+	
 		return n;
 }
 
