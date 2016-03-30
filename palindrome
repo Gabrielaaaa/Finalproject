@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main () {
+FILE *fp =fopen("array.txt","r");
+
+
+
+//char 2DArray [a][b]  first number is the row and the next is the coluumn
+int a = 235886; // i counted the number of lines in the text file and set them as # of rows
+int b = 50; // each chacter will be in a colum , words are not more than 50 charcters ~ so not more than 50 columns
+char **Array2D = malloc(a*sizeof(char*));  // allocating memory to the heop because this is a huge list of words, 
+//double asterisk is for pointer to a pointer 
+int i;
+	for (i = 0; i<a; ++i){
+		Array2D[i]=malloc(b*sizeof(char));  //for each row you are allocating 50 spaces
+	}
+
+	int g = 0;
+	while(fgets(Array2D[g],50,fp) != NULL){  //  fgets reads one line and returns null if the end of file is reached  
+		g++;  // this while loop runs 235886 times
+	}	
+printf("%d",g);
+
+
+
+// find palindromey
+int palicount = a;
+int palinArray[sizeof(palicount)/sizeof(int)]={};
+int j;
+int k;
+
+	for (j = 0; j=<a; ++j)
+{
+	int word_length = strlen(Array2D[j]);
+	bool palindrome = true;  // might cause error
+	
+
+		for ( k= 0; k < word_length; k++){
+ 			if (Array2D[j][k] != Array2D[j][word_length-k-2] ){ // the -1 is to account for indexing and another -1 
+ 				//is to account for the null character
+ 				palicount = palicount-1;
+ 				palindrome = false;
+ 			}
+ 		}
+ }
+ 	if (palindrome){
+ 		
+
+ 		palinArray[a-palicount] = Array2D[j][k]; //// storing the addresses of all the rows that have palindromes
+ 	}			
+ 	}
+
+ }
+
+ printf("d%",palinArray);
+ printf("There are d% palindromes in the file",palincount);
+int y;
+ 	for (y=0;y<a;++y) {
+ 	free(Array2D[y]);    // it is good practice to free the memory taken up in heap when your done using it, 
+
+ }
+ free(Array2D); 
+ return 0;
+ }
+
+ return 0;
+}
