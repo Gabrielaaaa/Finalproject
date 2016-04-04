@@ -2,67 +2,74 @@
 #include <stdlib.h>
 #include <string.h>
 int main () {
-FILE *fp =fopen("array.txt","r");
+	FILE *fp =fopen("array.txt","r");
 
 
 
-//char 2DArray [a][b]  first number is the row and the next is the coluumn
-int a = 235886; // i counted the number of lines in the text file and set them as # of rows
-int b = 50; // each chacter will be in a colum , words are not more than 50 charcters ~ so not more than 50 columns
-char **Array2D = malloc(a*sizeof(char*));  // allocating memory to the heop because this is a huge list of words, 
-//double asterisk is for pointer to a pointer 
-int i;
-	for (i = 0; i<a; ++i){
-		Array2D[i]=malloc(b*sizeof(char));  //for each row you are allocating 50 spaces
-	}
+	//char 2DArray [a][b]  first number is the row and the next is the coluumn
+	int a = 235886; // i counted the number of lines in the text file and set them as # of rows
+	int b = 50; // each chacter will be in a colum , words are not more than 50 charcters ~ so not more than 50 columns
+	char **Array2D = malloc(a*sizeof(char*));  // allocating memory to the heop because this is a huge list of words, 
+	//double asterisk is for pointer to a pointer 
+	int i;
+		for (i = 0; i<a; ++i){
+			Array2D[i]=malloc(b*sizeof(char));  //for each row you are allocating 50 spaces
+		}
 
-	int g = 0;
-	while(fgets(Array2D[g],50,fp) != NULL){  //  fgets reads one line and returns null if the end of file is reached  
-		g++;  // this while loop runs 235886 times
-	}	
-printf("%d",g);
+		int g = 0;
+		while(fgets(Array2D[g],50,fp) != NULL){  //  fgets reads one line and returns null if the end of file is reached  
+			g++;  // this while loop runs 235886 times
+		}	
+	printf("%d",g);
 
 
 
 // find palindromey
-int palicount = a;
-int palinArray[sizeof(palicount)/sizeof(int)]={};
-int j;
-int k;
+//int palicount = a;
+//int palinArray[a]={}; // you cant variable sizes in array
+// write out the number 235886 instead of a
 
-	for (j = 0; j=<a; ++j)
-{
-	int word_length = strlen(Array2D[j]);
-	bool palindrome = true;  // might cause error
-	
+	int palicount = 0;
+	char *palinArray[235886];  // the placement of the asterisk doesnt matter
 
-		for ( k= 0; k < word_length; k++){
- 			if (Array2D[j][k] != Array2D[j][word_length-k-2] ){ // the -1 is to account for indexing and another -1 
- 				//is to account for the null character
- 				palicount = palicount-1;
- 				palindrome = false;
+	//int j;  // This is the "old version" you declare THEN initialize in the next line you do not need to write "gcc -std=c99 name of file"
+	// if you write every in one line you have to write that thing into the terminal
+	for (int j = 0; j<a; ++j) // its less than , no equal sign 
+	{
+		int word_length = strlen(Array2D[j]);
+		int pali_statement = 1;  // might cause error
+
+
+		for (int k= 0; k < word_length; k++){
+ 			if (Array2D[j][k] != Array2D[j][word_length-k-3] ){ // the -1 is to account for indexing and another -1 
+ 				//is to account for the null character, and another -1 because the /r,   "dogs" is actually dogs\r\n
+ 				pali_statement = 0;
  			}
  		}
- }
- 	if (palindrome){
+ 		if (pali_statement == 1){
  		
+ 			palinArray[palicount] = Array2D[j]; // storing character pointers, array of character pointers
+ 			++palicount; 
+ 			//
+ 		}		
 
- 		palinArray[a-palicount] = Array2D[j][k]; //// storing the addresses of all the rows that have palindromes
- 	}			
  	}
 
- }
 
- printf("d%",palinArray);
- printf("There are d% palindromes in the file",palincount);
-int y;
- 	for (y=0;y<a;++y) {
- 	free(Array2D[y]);    // it is good practice to free the memory taken up in heap when your done using it, 
 
- }
- free(Array2D); 
- return 0;
- }
+ 	  // it is good practice to free the memory taken up in heap when your done using it, 
+ 	for (int i = 0; i < g; ++i) {     /// you can use i again because it is only in the scope of this loop
+ 		free(Array2D[i]);
+ 	}
+	free(Array2D); 
+	 
+	
+	printf("These are the palindromes\n");
+	for (int i = 0; i < palicount; ++i){
+		printf(" %s ", palinArray[i]);
+	}
 
- return 0;
+	 printf("%d",palinArray);
+	 printf("There are %d palindromes in the file",palicount);
+	 return 0;
 }
