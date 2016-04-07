@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+	char first_name[50];
+	char last_name[50];
+	int age;
+} legislator; 
+// after using the month conversion function, 
+
+// must use strtok() , call it a second time with a null, strtok(NULL,","), call it a third time strtok(NUll,",")
+int monthConversion (char* month) {
+	if (strcmp("Jan",month)==0) {
+		return 1; }
+	if (strcmp("Feb",month)==0) {
+		return 2; }
+	if (strcmp("Mar",month)==0) {
+		return 3; }
+	if (strcmp("Apr",month)==0) {
+		return 4; }
+	if (strcmp("May",month)==0) {
+		return 5; }
+	if (strcmp("Jun",month)==0) {
+		return 6; }
+	if (strcmp("Jul",month)==0) {
+		return 7; }
+	if (strcmp("Aug",month)==0) {
+		return 8; }
+	if (strcmp("Sep",month)==0) {
+		return 9; }
+	if (strcmp("Oct",month)==0) {
+		return 10; }
+	if (strcmp("Nov",month)==0) {
+		return 11; }
+	if (strcmp("Dec",month)==0) {
+		return 12; }
+}
+
+int dateConversion(char* date){	
+	int day = atoi(strok(date,'-'));  
+	int mon = monthConversion(strtok(NULL,'-'));
+	int year = atoi(strtok(NULL,'-'));	
+	int age = 2016 - year; )
+ 	if (mon > 4) {
+ 		age = age - 1; 
+ 	}
+ 
+	if ((mon = 4)&(day != 1)) {
+ 		age = age - 1;
+ 	}
+ 	return age;
+}
+
+
+void lineToLegislator(legislator *cong, char *line){
+
+	cong.last_name = strtok(line, ',');
+	cong.first_name = strtok(NULL,',');
+	cong.age = dateConversion(strtok(NULL, ','))
+}
+
+void displayCongress(legislator *congress, int count){
+	for (int i = 0; i <= count; i++){
+		congress[i].last_name;
+		congress[i].first_name;
+		congress[i].age;
+	}
+
+
+}
+ int main() {
+FILE *fp =fopen("legislator-short (1).cvs","r");
+	char line[2000]
+	while (fgets(line,50,fp) != NULL) {
+		legislator leg;
+		lineToLegislator(&leg,line)
+		printf("%s",leg.first_name)
+		printf("%s"leg.first_name)
+		printf("%d",age)
+	}
+	return 0;
+ }
