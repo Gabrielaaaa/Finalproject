@@ -1,0 +1,153 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+//Student Struct
+struct Student{
+	//data
+	int id;
+	char* firstname;
+	char* lastname;
+	char* department;
+
+	//next pointer
+	struct Student* next;
+};
+
+//function check if student exits
+int checkStudentExists(struct Student* headptr, int aid){
+	
+	//assign a pointer to headptr of the list
+	struct Student* current = headptr;  // *current = first, where first is also a pointer
+
+	//loop through and check if student exists in list
+	while(current != NULL){
+		
+		if(current->id == aid){ //check the id test to see if anyone with same id
+			return 0;
+		}
+
+		//if that is not true loop through the list
+		current = current->next; 
+
+	}
+
+	//if it completed the whole loop without returning 0 then student doesn't exists
+	return -1;
+
+}
+
+//function adds student to specific link list
+void addStudent(char* fname, char* lname, char* major, int sid, struct Student* headptr){
+	//set a current pointer to loop through 
+	struct Student* current;
+
+	if(headptr == NULL){ //if the list is empty then allocate memory for it
+		headptr = (struct Student* )malloc(sizeof(struct Student));
+		current = headptr;
+	}
+	else{ //if list not empty
+		//check if student exist if he does don't add him
+		if(checkStudentExists(headptr, sid) == 0){
+			printf("CAN NOT ADD BECAUSE ALREADY IN THE LIST");
+		}
+		//otherwise loop through alphabetically
+		else{
+			current = headptr;
+			//check to see if the next element is not the last and 
+			while(current != NULL && strcmp(current->lastname, lname) < 0){
+				current = current->next;
+			}
+		}
+		//the next student would be where the loop stopped
+		struct Student* nextStudent = current;
+		//allocate memory for a new student
+		struct Student* newStudent = (struct Student* )malloc(sizeof(struct Student));
+		//assign current student to new student
+		current = newStudent;
+		//assign the values
+		current->firstname = fname;
+		current->lastname = lname;
+		current->department = major;
+		current->id = sid;
+		//set the new students next to where the loop stopped or nextStudent pointer
+		current->next = nextStudent;
+	}
+}
+
+//function to print out students of the major
+void printStudents(struct Student* headptr){
+	//set current pointer to headptr
+	struct Student* current = headptr;
+	while(current != NULL){
+		//loop through and print info
+		printf("Name: %s %s, ID: %d", headptr->firstname, headptr->lastname, headptr->id);
+		current = current->next;
+	}
+}
+
+int main(){
+
+	//information variables
+	char add;
+	char* fname;
+	fname = (char *)malloc(4);
+	char* lname ; 
+	lname = (char *)malloc(4);
+	char* department;
+	department = (char *)malloc(4);
+	int id;
+		
+
+	//three linked lists
+	struct Student* csHeadptr;
+	struct Student* mechiHeadptr;
+	struct Student* eeHeadptr;
+
+	//infinite loop
+	while (1){
+		//ask for information
+		printf("Add Student ?: ");
+		scanf("%c", &add);
+
+		//check if a student is going to be added
+		if(strcmp(&add,"y") == 0){
+			printf("First Name ?: ");
+			scanf("%s", fname);
+
+			printf("Last Name ?: ");
+			scanf("%s", lname);
+
+			printf("ID ?:");
+			scanf("%d", &id);
+
+			printf("Department ?: ");
+			scanf("%s", department);
+
+			//add to specific link list based on department
+			if(strcmp(department,"Computer Science")== 0){
+
+				addStudent(fname, lname, department, id, csHeadptr);
+			}
+			else if(strcmp(department,"Mechanical") == 0){
+				addStudent(fname, lname, department, id, mechiHeadptr);
+			}
+			else{
+				addStudent(fname, lname, department, id, eeHeadptr);
+			}
+		}
+
+		//otherwise print out info for all majors
+		else{
+			printf("Students for Computer Science department: ");
+			printStudents(csHeadptr);
+			printf("Students for Mechanical department: ");
+			printStudents(mechiHeadptr);
+			printf("Students for Electrical department: ");
+			printStudents(eeHeadptr);
+			break;
+		}
+	}
+
+	return(0);
+}
